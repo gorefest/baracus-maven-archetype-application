@@ -1,6 +1,8 @@
 package org.baracus.application;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +21,11 @@ public class CustomerListItemAdapter extends ArrayAdapter<Customer> {
 
     private View view;
 
-    public CustomerListItemAdapter(Context context, int textViewResourceId) {
+    Activity activity;
+
+    public CustomerListItemAdapter(Activity context, int textViewResourceId) {
         super(context, textViewResourceId);
+        this.activity = context;
     }
 
     /**
@@ -61,12 +66,39 @@ public class CustomerListItemAdapter extends ArrayAdapter<Customer> {
         TextView created = (TextView) view.findViewById(R.id.customerCreated);
         TextView modified = (TextView) view.findViewById(R.id.customerLastModified);
 
-        id.setText(object.getId().toString());
+        final RowClickListener rowClickListener = new RowClickListener();
+
+        if (object.getId() != null) {
+            id.setText(object.getId().toString());
+            id.setTag(object.getId());
+            id.setOnClickListener(rowClickListener);
+        }
+
         lastName.setText(object.getLastName());
+        lastName.setTag(object.getId());
+        lastName.setOnClickListener(rowClickListener);
+
         firstName.setText(object.getFirstName());
+        firstName.setTag(object.getId());
+        firstName.setOnClickListener(rowClickListener);
+
         created.setText(DateUtil.toEuropeanDate(object.getCreationDate()));
         modified.setText(DateUtil.toEuropeanDate(object.getLastModificationDate()));
 
+    }
+
+    private final class RowClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+
+           Long customerId = (Long) ((TextView)v).getTag();
+
+            Intent openPlanningViewIntent = new Intent(getContext(), CustomerEditorActivity.class);
+            if (customerId != null) {
+                openPlanningViewIntent.putExtra(Customer.idCol.fieldName, customerId);
+            }
+            activity.startActivity(openPlanningViewIntent);
+        }
     }
 
 }

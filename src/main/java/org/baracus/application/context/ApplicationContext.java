@@ -23,8 +23,15 @@ public class ApplicationContext extends BaracusApplicationContext {
         // This is a Interface/Implmementation style registration
         registerBeanClass(CustomerDataService.class, CustomerDataServiceImpl.class);
 
+        // ...
+        // register your beans here
+        // ...
+
+
         // finally, we set a Post-Appcontext-Init hook
         setApplicationContextInitializer(new ApplicationInitializerCallback());
+
+
     }
 
 }

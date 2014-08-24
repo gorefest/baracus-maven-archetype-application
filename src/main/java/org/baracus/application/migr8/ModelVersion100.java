@@ -7,13 +7,14 @@ import org.baracus.application.model.Customer;
 
 /**
  * Created with IntelliJ IDEA.
- * User: marcus
- * To change this template use File | Settings | File Templates.
+ *
+ * Initial demonstration model version creating the customer table
+ *
  */
 public class ModelVersion100 implements MigrationStep {
 
-
     private static final Logger logger = new Logger(ModelVersion100.class);
+
     @Override
     public void applyVersion(SQLiteDatabase db) {
 

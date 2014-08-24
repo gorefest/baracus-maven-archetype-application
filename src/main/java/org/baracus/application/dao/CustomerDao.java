@@ -14,6 +14,7 @@ import static net.mantucon.baracus.orm.ModelBase.idCol;
 import static org.baracus.application.model.Customer.*;
 
 /**
+ * Implementation of a sample DAO
  */
 @Bean
 public class CustomerDao extends BaseDao<Customer> {
@@ -62,6 +63,8 @@ public class CustomerDao extends BaseDao<Customer> {
             if (customer.getId() != null) { result.put(idCol.fieldName, customer.getId()); }
             if (customer.getLastName() != null) { result.put(lastNameCol.fieldName, customer.getLastName()); }
             if (customer.getFirstName() != null) { result.put(firstNameCol.fieldName, customer.getFirstName()); }
+            if (customer.getLastModificationDate() != null) { result.put(lastModifiedCol.fieldName, customer.getLastModificationDate().getTime());}
+            if (customer.getCreationDate() != null) { result.put(createDateCol.fieldName, customer.getCreationDate().getTime());}
             return result;
         }
     };

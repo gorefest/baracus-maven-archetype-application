@@ -17,12 +17,15 @@ public class Customer extends ModelBase implements Timestamped{
 
     private static int columnIndex= ModelBase.fieldList.size();
 
-    private String lastName;
-    private String firstName;
-    private Date creationDate;
-    private Date lastModificationDate;
+    private String lastName;    // Last name of the customer
+    private String firstName;   // First name of the customer
+    private Date creationDate;  // Timestamped managed creation date
+    private Date lastModificationDate; // Timestamped managed lastmodification date
 
 
+    /*
+        Metadata. Instead of a configuration file, simply define the metadata here
+     */
     public static final FieldList fieldList = new FieldList(Customer.class.getSimpleName());
     public static final Field lastNameCol = new Field("last_name", columnIndex++);
     public static final Field firstNameCol = new Field("first_name", columnIndex++);
